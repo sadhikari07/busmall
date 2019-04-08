@@ -1,0 +1,28 @@
+#rightImage, #leftImage{
+  height: 15%;
+  width: 15%;
+}
+
+#leftImage{
+  float: left;
+}
+
+#rightImage{
+  float: right;
+}
+
+#headerControl{
+display: inline-block;
+align-content: space-between;
+}
+
+header{
+  border-style: dotted;
+}
+h1{
+  font-size: 200%;
+  color: blueviolet;
+  float: right;
+  margin-left: 0%;
+  margin-right: 20%;
+}
