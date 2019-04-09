@@ -33,11 +33,8 @@ body{
 
 #productPic1, #productPic2, #productPic3{
   width: 200px;
-  height: 200px;
- 
+  height: 300px;
 }
-
-
 
 #voted-list{
   width: 200px;
