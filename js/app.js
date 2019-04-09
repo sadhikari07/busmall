@@ -1,47 +1,83 @@
 'use strict';
 
+var imagesOnDisplay=[];
 var allProducts=[];
-var productPic=document.getElementById('productPic');
+var productPicOne=document.getElementById('productPic1');
+var productPicTwo=document.getElementById('productPic2');
+var productPicThree=document.getElementById('productPic3');
 
-function ProductPic(){
-  this.filepath=`images/${name}.jpg`;
+function ProductPic(name){
+  this.filepath=`./img/${name}.jpg`;
   this.name=name;
   this.views=0;
+  this.clickCount=0;
   allProducts.push(this);
 }
 
-new ProductPic('bag');
-new ProductPic('banana');
-new ProductPic('bathroom');
-new ProductPic('boots');
-new ProductPic('breakfast');
-new ProductPic('bubblegum');
-new ProductPic('chair');
-new ProductPic('cthulhu');
-new ProductPic('dog-duck');
-new ProductPic('dragon');
-new ProductPic('pen');
-new ProductPic('pet-sweep');
-new ProductPic('scissors');
-new ProductPic('shark');
-new ProductPic('sweep');
-new ProductPic('tantum');
-new ProductPic('unicorn');
-new ProductPic('usb');
-new ProductPic('water-can');
-new ProductPic('wine-glass');
+var productPicsDisplay=['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'
+];
 
+for (var i=0;i<productPicsDisplay.length;i++){
+  new ProductPic(productPicsDisplay[i]);
+}
+
+function imageUpdater(imageElement, imagePosition){
+  imageElement.src=imagesOnDisplay[imagePosition].filepath;
+  imageElement.alt=imagesOnDisplay[imagePosition].name;
+  imageElement.title=imagesOnDisplay[imagePosition].name;
+}
+
+var randomNumbersThree=[];
+var randomNumbersSix=[];
 function showRandomProducts(){
-  var random=Math.floor(Math.random() * allProducts.length);
+  while(imagesOnDisplay.length<3){
+    var random=Math.floor(Math.random() * allProducts.length);
+    var isUnique=true;
+    console.log('random number', random);
+    for(var p=0;p<randomNumbersThree.length;p++){
+      if(randomNumbersThree[p]===random||randomNumbersSix[p]===random){
+        isUnique=false;
+        console.log('duplicate found');
+      }
+    }
 
-  productPic.src=allProducts[random].filepath;
-  productPic.alt=allProducts[random].name;
-  productPic.title=allProducts[random].name;
+
+    if(isUnique===true){
+      randomNumbersSix=randomNumbersThree;
+      randomNumbersThree.push(random);
+      // var pictureDisplay = allProducts[random];
+      // imagesOnDisplay.push(pictureDisplay);
+    }
+    imagesOnDisplay.push(allProducts[random]);
+    allProducts[random].views=+1;
+    console.log(allProducts[random].views);
+  }
+
+
+  // var pictureDisplay = allProducts[random];
+  // imagesOnDisplay.push(pictureDisplay);
+
+  // }
+
+  imageUpdater(productPicOne, 0);
+  imageUpdater(productPicTwo, 1);
+  imageUpdater(productPicThree, 2);
 }
 
 function handleProductClick(event){
-  showRandomProducts;
+  imagesOnDisplay=[];
+  console.log(event.target);
+  showRandomProducts();
+  // allProducts[random].clickCount++;
 }
 
 showRandomProducts();
+var productPic=document.getElementById('productPic');
 productPic.addEventListener('click', handleProductClick);
+
+
+
+//variable inside constructor to track click count
+//view count
+//increment click ounter on click and clear images off of page
+//then run showrandomproiduct
