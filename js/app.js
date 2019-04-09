@@ -28,6 +28,7 @@ function clickCounter(thisPicture) {
   }
   if(totalClicks===25){
     productPic.removeEventListener('click', handleProductClick);
+    showVotes();
   }
 }
 
@@ -78,7 +79,8 @@ function handleProductClick(event){
   imagesOnDisplay=[];
   clickCounter(event.target.title);
   showRandomProducts();
-  // console.log(event.target.title);
+
+ 
 }
 
 showRandomProducts();
@@ -86,4 +88,19 @@ var productPic=document.getElementById('productPic');
 productPic.addEventListener('click', handleProductClick);
 
 
-// clickCounter();
+
+
+function showVotes() {
+  var voteList = document.getElementById('voted-list');
+  voteList.innerHTML = '';
+  for (var i = 0; i < allProducts.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = allProducts[i].name + ', ' + allProducts[i].clickCount + ' votes';
+    voteList.appendChild(liEl);
+  }
+}
+
+
+// document.getElementById('voted-list').addEventListener('click', function() {
+//   showVotes();
+// });
