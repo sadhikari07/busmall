@@ -1,5 +1,4 @@
 'use strict';
-
 var imagesOnDisplay=[];
 var allProducts=[];
 var productPicOne=document.getElementById('productPic1');
@@ -17,9 +16,25 @@ function ProductPic(name){
 var productPicsDisplay=['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'
 ];
 
+
+var totalClicks=0;
+
+function clickCounter(thisPicture) {
+  totalClicks+=1;
+  for (var i = 0; i < allProducts.length; i++) {
+    if (thisPicture === allProducts[i].name) {
+      allProducts[i].clickCount++;
+    }
+  }
+  if(totalClicks===25){
+    productPic.removeEventListener('click', handleProductClick);
+  }
+}
+
 for (var i=0;i<productPicsDisplay.length;i++){
   new ProductPic(productPicsDisplay[i]);
 }
+
 
 function imageUpdater(imageElement, imagePosition){
   imageElement.src=imagesOnDisplay[imagePosition].filepath;
@@ -29,46 +44,41 @@ function imageUpdater(imageElement, imagePosition){
 
 var randomNumbersThree=[];
 var randomNumbersSix=[];
+
 function showRandomProducts(){
+  randomNumbersThree=[];
   while(imagesOnDisplay.length<3){
-    var random=Math.floor(Math.random() * allProducts.length);
+    var random=Math.floor(Math.random() * (allProducts.length));
     var isUnique=true;
     console.log('random number', random);
-    for(var p=0;p<randomNumbersThree.length;p++){
-      if(randomNumbersThree[p]===random||randomNumbersSix[p]===random){
-        isUnique=false;
-        console.log('duplicate found');
-      }
+    if(randomNumbersThree.includes(random)||randomNumbersSix.includes(random)){
+      isUnique=false;
+      console.log('duplicate found', random);
     }
-
 
     if(isUnique===true){
-      randomNumbersSix=randomNumbersThree;
       randomNumbersThree.push(random);
-      // var pictureDisplay = allProducts[random];
-      // imagesOnDisplay.push(pictureDisplay);
+      imagesOnDisplay.push(allProducts[random]);
+      console.log('second array', randomNumbersSix);
+      console.log('first array', randomNumbersThree);
+      allProducts[random].views+=1;
+      console.log('image number', random, 'number of views', allProducts[random].views);
     }
-    imagesOnDisplay.push(allProducts[random]);
-    allProducts[random].views=+1;
-    console.log(allProducts[random].views);
   }
-
-
-  // var pictureDisplay = allProducts[random];
-  // imagesOnDisplay.push(pictureDisplay);
-
-  // }
 
   imageUpdater(productPicOne, 0);
   imageUpdater(productPicTwo, 1);
   imageUpdater(productPicThree, 2);
+
+  randomNumbersSix=randomNumbersThree;
 }
 
 function handleProductClick(event){
+  console.log(event.target.title);
   imagesOnDisplay=[];
-  console.log(event.target);
+  clickCounter(event.target.title);
   showRandomProducts();
-  // allProducts[random].clickCount++;
+  // console.log(event.target.title);
 }
 
 showRandomProducts();
@@ -76,8 +86,4 @@ var productPic=document.getElementById('productPic');
 productPic.addEventListener('click', handleProductClick);
 
 
-
-//variable inside constructor to track click count
-//view count
-//increment click ounter on click and clear images off of page
-//then run showrandomproiduct
+// clickCounter();
