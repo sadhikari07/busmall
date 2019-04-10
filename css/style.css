@@ -17,7 +17,7 @@ align-content: space-between;
 }
 
 header{
-  border-style: dotted;
+  border-style: double;
 }
 h1{
   font-size: 200%;
@@ -31,10 +31,9 @@ body{
   background-color: antiquewhite;
 }
 
-#productPic1, #productPic2, #productPic3{
-  width: 200px;
+ #productPic1, #productPic2, #productPic3{
   height: 300px;
-}
+} 
 
 #voted-list{
   width: 200px;
@@ -42,14 +41,16 @@ body{
   margin-left: 0px;
   margin-right: 20px;
   border: solid;
-  float: left;
+  /* float: left; */
 }
 
 p{
   font-size: 20px;
 }
 
-#productPic{
-
-  width: 880px;
+.floatLeft{
+  border-style: double;
+  float: left;
+  width: 20%;
+  margin-right: 10px;
 }
