@@ -4,13 +4,11 @@ var allProducts=[];
 var countedVotes=[];
 
 //To render three pictures:
-
 var productPicOne=document.getElementById('productPic1');
 var productPicTwo=document.getElementById('productPic2');
 var productPicThree=document.getElementById('productPic3');
 
-//The following is  a constructor function for all of the images:
-
+//The following is  a constructor function for all of the images
 function ProductPic(name){
   this.filepath=`./img/${name}.jpg`;
   this.name=name;
@@ -24,20 +22,16 @@ var productPicsDisplay=['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubb
 ];
 
 var totalClicks=0;
-
 //This function counts the number of clicks on each images
 function clickCounter(thisPicture) {
-
   //totalClicks+=1; is for total number of clicks, to set limit at 25 later on.
   totalClicks+=1;
-
   //This loop counts the clicks on each images:
   for (var i = 0; i < allProducts.length; i++) {
     if (thisPicture === allProducts[i].name) {
       allProducts[i].clickCount++;
     }
   }
-
   //To set maximum clicks to 25
   if(totalClicks===25){
     productPic.removeEventListener('click', handleProductClick);
@@ -48,13 +42,22 @@ function clickCounter(thisPicture) {
       countedVotes.push(allProducts[j].clickCount);
     }
     //This function draws the chart after 25 clicks have been made.
+    // localStoreMaker();
+    updateStoreage();
     letsDrawChart();
   }
 }
 
+function updateStoreage(){
+  localStorage.setItem('countedVotesStore', JSON.stringify(allProducts));
+
+}
+
 //This is to populate productpic function with images
-for (var i=0;i<productPicsDisplay.length;i++){
-  new ProductPic(productPicsDisplay[i]);
+function initializeProducts(){
+  for (var i=0;i<productPicsDisplay.length;i++){
+    new ProductPic(productPicsDisplay[i]);
+  }
 }
 
 function imageUpdater(imageElement, imagePosition){
@@ -115,6 +118,20 @@ function handleProductClick(event){
 }
 
 //This shows three random images on page load.
+//With assistance from TAs:
+function localStoreMaker(){
+  var productsInStorage=localStorage.getItem('countedVotesStore');
+  if (!productsInStorage){
+    initializeProducts();
+    console.log('initialized', localStorage.length);
+    localStorage.setItem('countedVotesStore', JSON.stringify(allProducts));
+  }
+  else{
+    allProducts= JSON.parse(localStorage.getItem('countedVotesStore'));
+  }
+}
+
+localStoreMaker();
 showRandomProducts();
 var productPic=document.getElementById('productPic');
 productPic.addEventListener('click', handleProductClick);
