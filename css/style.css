@@ -13,7 +13,7 @@
 
 #headerControl{
 display: inline-block;
-align-content: space-between;
+/* align-content: space-between; */
 }
 
 header{
@@ -21,14 +21,12 @@ header{
 }
 h1{
   font-size: 200%;
-  color: blueviolet;
+  color: greenyellow;
   float: right;
-  margin-left: 0%;
-  margin-right: 20%;
 }
 
 body{
-  background-color: antiquewhite;
+  background-image: url('https://previews.123rf.com/images/massonforstock/massonforstock1708/massonforstock170800894/83797964-big-red-gumshoes-and-beautiful-gift-in-cool-shopping-bag-on-the-wonderful-white-background.jpg');
 }
 
  #productPic1, #productPic2, #productPic3{
@@ -45,7 +43,9 @@ body{
 }
 
 p{
-  font-size: 20px;
+  font-size: 30px;
+  color: black;
+  font-weight: bolder;
 }
 
 .floatLeft{
